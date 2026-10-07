@@ -1,0 +1,82 @@
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: system-ui, sans-serif;
+  text-align: center;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.video-wrapper {
+  margin-bottom: 20px;
+}
+
+.now-playing {
+  font-weight: 600;
+  color: #333;
+}
+
+.decision-panel {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 20px 0;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat .label {
+  font-size: 12px;
+  color: #888;
+  text-transform: uppercase;
+}
+
+.stat .value {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.stat .value.warning {
+  color: #d9534f;
+}
+
+.controls {
+  text-align: left;
+  margin: 24px 0;
+}
+
+.controls label {
+  display: block;
+  margin: 12px 0;
+}
+
+.controls input[type="range"] {
+  width: 100%;
+}
+
+.hint {
+  font-size: 13px;
+  color: #888;
+}
+
+.history table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.history th, .history td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
