@@ -6,20 +6,17 @@ import './App.css';
 const SERVER_URL = 'http://127.0.0.1:8000/api/network-status';
 
 function App() {
+  const [mode, setMode] = useState('manual'); // 'manual' | 'real'
   const [bandwidth, setBandwidth] = useState(8);
-  const [buffer, setBuffer] = useState(15);
   const [delay, setDelay] = useState(60);
   const [decision, setDecision] = useState(null);
   const [source, setSource] = useState(null);
   const [history, setHistory] = useState([]);
   const videoRef = useRef(null);
 
-  // Read the real buffer from the video element instead of trusting
-  // the slider alone - the player's actual buffered range is more
-  // honest than a number a person set by hand.
   const getBufferHealth = useCallback(() => {
     const video = videoRef.current;
-    if (!video || video.readyState < 2) return buffer;
+    if (!video || video.readyState < 2) return 0;
     const currentTime = video.currentTime;
     for (let i = 0; i < video.buffered.length; i++) {
       if (video.buffered.start(i) <= currentTime && currentTime < video.buffered.end(i)) {
@@ -27,24 +24,34 @@ function App() {
       }
     }
     return 0;
-  }, [buffer]);
+  }, []);
 
   const askEngine = useCallback(async () => {
+    let bw, dly;
+    if (mode === 'real') {
+      const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      bw = conn ? conn.downlink : 1.0;
+      dly = conn ? conn.rtt : 50;
+    } else {
+      bw = bandwidth;
+      dly = delay;
+    }
     const liveBuffer = getBufferHealth();
+
     try {
-      const res = await axios.post(SERVER_URL, { bandwidth, buffer: liveBuffer, delay });
+      const res = await axios.post(SERVER_URL, { bandwidth: bw, buffer: liveBuffer, delay: dly });
       setDecision(res.data.quality);
       setSource(res.data.source);
-      setHistory(prev => [...prev.slice(-19), {
+      setHistory(prev => [...prev.slice(-29), {
         time: new Date().toLocaleTimeString(),
-        bandwidth, buffer: liveBuffer, delay,
+        bandwidth: bw, buffer: liveBuffer, delay: dly,
         quality: res.data.quality,
       }]);
     } catch (err) {
       console.error('Could not reach server:', err.message);
       setSource('unreachable');
     }
-  }, [bandwidth, delay, getBufferHealth]);
+  }, [mode, bandwidth, delay, getBufferHealth]);
 
   useEffect(() => {
     askEngine();
@@ -70,20 +77,31 @@ function App() {
         </div>
       </div>
 
-      <div className="controls">
-        <h3>Simulate network conditions</h3>
-        <label>
-          Bandwidth: {bandwidth.toFixed(1)} Mbps
-          <input type="range" min="0" max="16" step="0.5" value={bandwidth}
-            onChange={e => setBandwidth(parseFloat(e.target.value))} />
-        </label>
-        <label>
-          Delay: {delay} ms
-          <input type="range" min="0" max="400" step="10" value={delay}
-            onChange={e => setDelay(parseFloat(e.target.value))} />
-        </label>
-        <p className="hint">Buffer is read live from the video player, not set manually.</p>
+      <div className="mode-toggle">
+        <button className={mode === 'manual' ? 'active' : ''} onClick={() => setMode('manual')}>Manual</button>
+        <button className={mode === 'real' ? 'active' : ''} onClick={() => setMode('real')}>Real Network</button>
       </div>
+
+      {mode === 'manual' && (
+        <div className="controls">
+          <h3>Simulate network conditions</h3>
+          <label>
+            Bandwidth: {bandwidth.toFixed(1)} Mbps
+            <input type="range" min="0" max="16" step="0.5" value={bandwidth}
+              onChange={e => setBandwidth(parseFloat(e.target.value))} />
+          </label>
+          <label>
+            Delay: {delay} ms
+            <input type="range" min="0" max="400" step="10" value={delay}
+              onChange={e => setDelay(parseFloat(e.target.value))} />
+          </label>
+          <p className="hint">Buffer is read live from the video player, not set manually.</p>
+        </div>
+      )}
+
+      {mode === 'real' && (
+        <p className="hint">Using your browser's real network readings (navigator.connection). Not all browsers support this — Chrome/Edge do, Firefox/Safari don't.</p>
+      )}
 
       <div className="history">
         <h3>Recent decisions</h3>

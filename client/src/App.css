@@ -80,3 +80,22 @@
   border-bottom: 1px solid #eee;
   text-align: left;
 }
+
+.mode-toggle {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0;
+  justify-content: center;
+}
+.mode-toggle button {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.mode-toggle button.active {
+  background: #333;
+  color: white;
+  border-color: #333;
+}
