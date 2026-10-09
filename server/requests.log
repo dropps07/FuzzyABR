@@ -714,3 +714,102 @@
 {"timestamp":"2026-10-08T17:18:04.432Z","inputs":{"bandwidth":8,"buffer":600.718217,"delay":60},"quality":360,"source":"fuzzy_engine"}
 {"timestamp":"2026-10-08T17:18:07.429Z","inputs":{"bandwidth":8,"buffer":600.718217,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
 {"timestamp":"2026-10-08T17:18:10.427Z","inputs":{"bandwidth":8,"buffer":600.718217,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:18:13.422Z","inputs":{"bandwidth":8,"buffer":600.718217,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:18:16.425Z","inputs":{"bandwidth":8,"buffer":600.718217,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:18:19.426Z","inputs":{"bandwidth":8,"buffer":600.718217,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:18:51.430Z","inputs":{"bandwidth":16,"buffer":81.91538800000001,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:18:51.430Z","inputs":{"bandwidth":8,"buffer":600.718217,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:19:50.688Z","inputs":{"bandwidth":8,"buffer":600.718205,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:19:51.426Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:19:51.817Z","inputs":{"bandwidth":8,"buffer":599.69211,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:19:55.425Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:19:58.424Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:01.425Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:04.423Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:07.423Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:10.428Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:13.421Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:16.429Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:19.427Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:22.427Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:25.426Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:28.432Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:31.430Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:34.428Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:37.421Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:40.425Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:43.424Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:46.429Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:49.427Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:51.429Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:20:52.428Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:21:51.432Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:21:51.433Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:22:51.430Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:22:51.434Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:23:51.429Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:23:51.432Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:24:51.428Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:24:51.434Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:25:51.427Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:25:51.430Z","inputs":{"bandwidth":8,"buffer":597.233149,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:26:19.003Z","inputs":{"bandwidth":8,"buffer":597.2331389999999,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:26:21.817Z","inputs":{"bandwidth":8,"buffer":594.533632,"delay":60},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:26:51.429Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:27:51.435Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:28:51.434Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:29:51.434Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:30:51.439Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:31:51.437Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:32:51.438Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:33:51.436Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:34:51.439Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:35:51.439Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-08T17:36:30.828Z","inputs":{"bandwidth":16,"buffer":536.537543,"delay":40},"quality":360,"source":"fallback (connect ECONNREFUSED 127.0.0.1:5001)"}
+{"timestamp":"2026-10-09T05:58:11.434Z","inputs":{"bandwidth":8,"buffer":0,"delay":60},"quality":400,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:11.437Z","inputs":{"bandwidth":8,"buffer":0,"delay":60},"quality":400,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:14.426Z","inputs":{"bandwidth":8,"buffer":57.184476,"delay":60},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:17.424Z","inputs":{"bandwidth":8,"buffer":24.184863999999997,"delay":60},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:20.422Z","inputs":{"bandwidth":8,"buffer":31.185321000000002,"delay":60},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:23.422Z","inputs":{"bandwidth":8,"buffer":58.184686,"delay":60},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:23.726Z","inputs":{"bandwidth":7.5,"buffer":57.876819000000005,"delay":60},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:23.736Z","inputs":{"bandwidth":6.5,"buffer":57.861703000000006,"delay":60},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:23.757Z","inputs":{"bandwidth":6,"buffer":57.842944,"delay":60},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:23.790Z","inputs":{"bandwidth":5.5,"buffer":57.807665,"delay":60},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:25.041Z","inputs":{"bandwidth":5.5,"buffer":66.560287,"delay":70},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:25.068Z","inputs":{"bandwidth":5.5,"buffer":66.531105,"delay":80},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:25.073Z","inputs":{"bandwidth":5.5,"buffer":66.52519000000001,"delay":100},"quality":360,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:25.095Z","inputs":{"bandwidth":5.5,"buffer":66.503731,"delay":140},"quality":190.84,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:25.118Z","inputs":{"bandwidth":5.5,"buffer":66.480389,"delay":190},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:25.143Z","inputs":{"bandwidth":5.5,"buffer":66.455938,"delay":210},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:25.162Z","inputs":{"bandwidth":5.5,"buffer":8.958767000000002,"delay":220},"quality":520.1,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:25.183Z","inputs":{"bandwidth":5.5,"buffer":8.937986,"delay":230},"quality":519.68,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:25.188Z","inputs":{"bandwidth":5.5,"buffer":8.932359000000002,"delay":240},"quality":519.56,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:25.236Z","inputs":{"bandwidth":5.5,"buffer":8.886077000000002,"delay":250},"quality":518.59,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:28.246Z","inputs":{"bandwidth":5.5,"buffer":83.36951099999999,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:31.249Z","inputs":{"bandwidth":5.5,"buffer":120.35494599999998,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:34.245Z","inputs":{"bandwidth":5.5,"buffer":147.35475300000002,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:37.246Z","inputs":{"bandwidth":5.5,"buffer":144.35427900000002,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:40.245Z","inputs":{"bandwidth":5.5,"buffer":161.370927,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:43.237Z","inputs":{"bandwidth":5.5,"buffer":188.370249,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:46.243Z","inputs":{"bandwidth":5.5,"buffer":215.370302,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:49.407Z","inputs":{"bandwidth":5.5,"buffer":214.665442,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:52.239Z","inputs":{"bandwidth":5.5,"buffer":234.65782299999998,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:55.406Z","inputs":{"bandwidth":5.5,"buffer":244.665623,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:58:58.398Z","inputs":{"bandwidth":5.5,"buffer":264.63478399999997,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:01.408Z","inputs":{"bandwidth":5.5,"buffer":274.665804,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:04.401Z","inputs":{"bandwidth":5.5,"buffer":294.658185,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:07.407Z","inputs":{"bandwidth":5.5,"buffer":294.658185,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:10.406Z","inputs":{"bandwidth":5.5,"buffer":304.665986,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:13.409Z","inputs":{"bandwidth":5.5,"buffer":334.666167,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:16.405Z","inputs":{"bandwidth":5.5,"buffer":334.666167,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:19.407Z","inputs":{"bandwidth":5.5,"buffer":364.66634899999997,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:22.404Z","inputs":{"bandwidth":5.5,"buffer":374.65092899999996,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:25.405Z","inputs":{"bandwidth":5.5,"buffer":374.65092899999996,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:28.407Z","inputs":{"bandwidth":5.5,"buffer":404.627891,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:31.411Z","inputs":{"bandwidth":5.5,"buffer":434.65129199999996,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:34.407Z","inputs":{"bandwidth":5.5,"buffer":474.659274,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:37.409Z","inputs":{"bandwidth":5.5,"buffer":494.651655,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:40.407Z","inputs":{"bandwidth":5.5,"buffer":534.659637,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:43.409Z","inputs":{"bandwidth":5.5,"buffer":564.659818,"delay":250},"quality":189.33,"source":"fuzzy_engine"}
+{"timestamp":"2026-10-09T05:59:46.409Z","inputs":{"bandwidth":5.5,"buffer":574.667618,"delay":250},"quality":189.33,"source":"fuzzy_engine"}

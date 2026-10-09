@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import axios from 'axios';
 import VideoPlayer from './VideoPlayer';
 import './App.css';
+import NetworkChart from './NetworkChart';
 
 const SERVER_URL = 'http://127.0.0.1:8000/api/network-status';
 
@@ -103,6 +104,7 @@ function App() {
         <p className="hint">Using your browser's real network readings (navigator.connection). Not all browsers support this — Chrome/Edge do, Firefox/Safari don't.</p>
       )}
 
+      <NetworkChart history={history} />
       <div className="history">
         <h3>Recent decisions</h3>
         <table>
