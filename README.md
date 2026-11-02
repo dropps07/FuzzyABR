@@ -2,6 +2,8 @@
 
 A fuzzy-logic adaptive bitrate (ABR) controller for video streaming. Every 3 seconds it takes the network's bandwidth, the player's buffer health and the network delay, and decides which video quality to play, using a Mamdani fuzzy inference system. The decision drives a real multi-bitrate HLS stream in the browser.
 
+## How it works
+
 ```
 React client (:3000)  ──POST /api/network-status──▶  Express server (:8000)  ──POST /get-quality──▶  Flask engine (:5001)
   hls.js player                                       logging + fallback                              scikit-fuzzy (Mamdani)
