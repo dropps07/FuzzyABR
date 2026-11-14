@@ -5,7 +5,7 @@ import Hls from 'hls.js';
 // Swap this for your own encoded video later if you want.
 const STREAM_URL = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
 
-export default function VideoPlayer({ videoRef, selectedQuality }) {
+export default function VideoPlayer({ videoRef, selectedQuality, onLevelsChange, onLevelChange }) {
   const hlsRef = useRef(null);
   const [levels, setLevels] = useState([]);
   const [currentLevel, setCurrentLevel] = useState(null);
@@ -23,6 +23,7 @@ export default function VideoPlayer({ videoRef, selectedQuality }) {
 
       hls.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
         setLevels(data.levels);
+        if (onLevelsChange) onLevelsChange(data.levels);
         video.play().catch(() => {}); // autoplay can be blocked, that's fine
       });
 
@@ -31,6 +32,7 @@ export default function VideoPlayer({ videoRef, selectedQuality }) {
       // a number changing somewhere off-screen.
       hls.on(Hls.Events.LEVEL_SWITCHED, (event, data) => {
         setCurrentLevel(data.level);
+        if (onLevelChange) onLevelChange(data.level);
       });
 
       return () => hls.destroy();
@@ -38,7 +40,7 @@ export default function VideoPlayer({ videoRef, selectedQuality }) {
       // Safari has native HLS support, no hls.js needed.
       video.src = STREAM_URL;
     }
-  }, [videoRef]);
+  }, [videoRef, onLevelsChange, onLevelChange]);
 
   // Whenever the fuzzy engine's decision changes, map it to the
   // closest available HLS quality level and switch to it.
