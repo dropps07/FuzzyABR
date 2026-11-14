@@ -82,8 +82,14 @@ export default function VideoPlayer({ videoRef, selectedQuality, onLevelsChange,
       <video ref={videoRef} controls muted style={{ width: '100%', maxWidth: '720px' }} />
       <div className={`now-playing${streamError ? ' now-playing-error' : ''}`} role="status">
         <span className="now-playing-badge" aria-hidden="true">
-          <svg viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z" />
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M8.5 5.8v12.4L19 12 8.5 5.8z"
+              fill="#fff"
+              stroke="#fff"
+              strokeWidth="1.6"
+              strokeLinejoin="round"
+            />
           </svg>
         </span>
         <span className="now-playing-text">
@@ -93,11 +99,6 @@ export default function VideoPlayer({ videoRef, selectedQuality, onLevelsChange,
               ? `Now playing: ${playingLevel.height}p`
               : 'Loading stream...'}
         </span>
-        {playingLevel && !streamError ? (
-          <span className="now-playing-bitrate">
-            {Math.round(playingLevel.bitrate / 1000)} kbps
-          </span>
-        ) : null}
       </div>
     </div>
   );

@@ -165,66 +165,65 @@ body {
   display: block;
 }
 
-/* Now-playing status bar: a glass pill, display only — not a button.
-   The chrome rim + blur echo the reference pill; the play badge marks
-   it as playback status. It spans the video width so the space under
-   the video reads as intentional. */
+/* Now-playing status pill: liquid glass, display only — not a button.
+   Small and centred under the video, sitting a little lower in the gap.
+   Layered translucent gradients + strong blur/saturate give the liquid
+   look; the bright rim and glossy play badge echo the reference pill. */
 .now-playing {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin: 12px 0 0;
-  padding: 8px 16px 8px 8px;
+  gap: 10px;
+  width: max-content;
+  max-width: 100%;
+  margin: 20px auto 0;
+  padding: 6px 16px 6px 6px;
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.16);
+  background:
+    linear-gradient(115deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 35%, rgba(255,255,255,0.01) 60%, rgba(255,255,255,0.1) 100%),
+    radial-gradient(120% 170% at 20% 0%, rgba(255,255,255,0.14), transparent 55%),
+    rgba(12,12,12,0.45);
+  border: 1px solid rgba(255,255,255,0.22);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.2),
-    0 10px 30px rgba(0,0,0,0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+    inset 0 1px 0 rgba(255,255,255,0.35),
+    inset 0 -1px 0 rgba(255,255,255,0.06),
+    inset 1px 0 0 rgba(255,255,255,0.08),
+    0 12px 32px rgba(0,0,0,0.5);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
   font-weight: 600;
   color: #fff;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .now-playing-error { border-color: rgba(245,158,11,0.5); }
 
 .now-playing-badge {
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 30% 30%, #333, #0a0a0a 70%);
-  border: 1px solid rgba(255,255,255,0.25);
+  background: radial-gradient(circle at 32% 28%, #555, #0d0d0d 68%);
+  border: 1px solid rgba(255,255,255,0.35);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.3),
-    0 0 0 3px rgba(255,255,255,0.04);
+    inset 0 1px 1px rgba(255,255,255,0.45),
+    inset 0 -1px 2px rgba(0,0,0,0.65),
+    0 2px 10px rgba(0,0,0,0.55);
 }
 
 .now-playing-badge svg {
-  width: 13px;
-  height: 13px;
-  fill: #fff;
-  margin-left: 2px;
+  width: 12px;
+  height: 12px;
+  margin-left: 1px;
 }
 
 .now-playing-text {
-  flex: 1;
   min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.now-playing-bitrate {
-  flex-shrink: 0;
-  color: #a3a3a3;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
 }
 
 /* ---- Decision stats ---- */
