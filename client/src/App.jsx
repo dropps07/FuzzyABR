@@ -175,16 +175,18 @@ function App() {
               <span className="value">{secondsToNext === null ? '…' : `${secondsToNext}s`}</span>
             </div>
           </div>
+
+          <QualityLadder
+            levels={levels}
+            currentLevelIndex={currentLevelIndex}
+            decision={decision}
+          />
         </aside>
       </main>
 
-      <div className="mid-row">
-        <QualityLadder
-          levels={levels}
-          currentLevelIndex={currentLevelIndex}
-          decision={decision}
-        />
+      <FuzzyPanel inputs={lastInputs} decision={decision} mappedLevel={mappedLevel} />
 
+      <div className="simulate-row">
         <section className="controls panel">
         <h3>Simulate network conditions</h3>
 
@@ -260,11 +262,9 @@ function App() {
           <p className="hint">Buffer is read live from the video player.</p>
         )}
         </section>
+
+        <NetworkChart history={history} />
       </div>
-
-      <FuzzyPanel inputs={lastInputs} decision={decision} mappedLevel={mappedLevel} />
-
-      <NetworkChart history={history} />
 
       <div className="history panel">
         <h3>Recent decisions</h3>

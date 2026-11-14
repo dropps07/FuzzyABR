@@ -1,11 +1,13 @@
-/* FuzzyABR — dark dashboard theme. System font stack only; nothing downloads. */
+/* FuzzyABR — reticia theme: pure black, white type, hairline borders,
+   pill buttons, faint halftone dots behind the header.
+   System font stack only; nothing downloads. */
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: #0b0f14;
-  color: #e6edf3;
+  background: #000;
+  color: #fff;
 }
 
 .App {
@@ -19,23 +21,42 @@ body {
 /* ---- Header ---- */
 
 .app-header {
+  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 20px;
+  padding-bottom: 20px;
 }
+
+/* Faint halftone dot texture behind the header, fading into black.
+   Pure CSS — no image assets. */
+.app-header::before {
+  content: "";
+  position: absolute;
+  inset: -24px -24px 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1.5px);
+  background-size: 9px 9px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+  pointer-events: none;
+}
+
+.app-header > * { position: relative; }
 
 .app-header h1 {
   margin: 0;
-  font-size: 28px;
-  letter-spacing: -0.5px;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 .subtitle {
-  color: #8b98a9;
-  margin: 4px 0 0;
-  font-size: 14px;
+  color: #a3a3a3;
+  margin: 8px 0 0;
+  font-size: 15px;
 }
 
 .health {
@@ -43,13 +64,13 @@ body {
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
-  margin-top: 6px;
-  padding: 6px 12px;
-  border: 1px solid #243044;
+  margin-top: 10px;
+  padding: 7px 14px;
+  border: 1px solid #1c1c1c;
   border-radius: 999px;
-  background: #111826;
+  background: #0a0a0a;
   font-size: 13px;
-  color: #8b98a9;
+  color: #a3a3a3;
   white-space: nowrap;
 }
 
@@ -57,7 +78,7 @@ body {
   width: 9px;
   height: 9px;
   border-radius: 50%;
-  background: #8b98a9;
+  background: #a3a3a3;
 }
 
 .health-ok { color: #22c55e; }
@@ -73,7 +94,7 @@ body {
   display: grid;
   grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   gap: 16px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .player-col,
@@ -84,40 +105,53 @@ body {
   min-width: 0;
 }
 
-/* ---- Row 2: ladder + simulate, side by side, equal height ---- */
+/* The ladder grows to fill the right column next to the video, so no
+   gap is left under the decision card. */
+.side-col .ladder-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0;
+}
 
-.mid-row {
+.side-col .ladder-panel .caption { margin-top: auto; }
+
+/* ---- Row 3: simulate + chart, side by side, equal height ---- */
+
+.simulate-row {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   gap: 16px;
   align-items: stretch;
   margin: 16px 0;
 }
 
-.mid-row > * { min-width: 0; }
+.simulate-row > * { min-width: 0; }
 
-.mid-row .controls { margin: 0; }
+.simulate-row .controls,
+.simulate-row .chart-wrapper { margin: 0; }
 
-/* Ladder card stretches to the row height; its caption sits at the bottom. */
-.mid-row .ladder-panel {
+/* Chart card: caption pinned to the bottom so the card fills the row
+   instead of ending in dead space. */
+.simulate-row .chart-wrapper {
   display: flex;
   flex-direction: column;
-  margin: 0;
 }
 
-.mid-row .ladder-panel .caption { margin-top: auto; }
+.simulate-row .chart-wrapper .caption { margin-top: auto; }
 
 .panel {
-  background: #111826;
-  border: 1px solid #243044;
-  border-radius: 12px;
+  background: #0a0a0a;
+  border: 1px solid #1c1c1c;
+  border-radius: 10px;
   padding: 16px 20px;
 }
 
 .panel h2,
 .panel h3 {
   margin: 0 0 12px;
-  font-size: 16px;
+  font-size: 17px;
+  letter-spacing: -0.01em;
 }
 
 /* ---- Video ---- */
@@ -133,7 +167,7 @@ body {
 
 .now-playing {
   font-weight: 600;
-  color: #e6edf3;
+  color: #fff;
   margin: 10px 0 0;
   font-size: 14px;
 }
@@ -159,7 +193,7 @@ body {
 
 .stat .label {
   font-size: 11px;
-  color: #8b98a9;
+  color: #a3a3a3;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -179,22 +213,32 @@ body {
    Two-column inner layout: membership bars left, rules right, with the
    defuzzified output and the explainer caption as a footer across the
    bottom. Pure CSS grid over the panel's existing children — the
-   component itself is untouched. */
+   component itself is untouched. Tightened vertical padding, and the
+   rules column distributes its rows evenly so it ends level with the
+   memberships column instead of in dead space. */
 
 .fuzzy-panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   column-gap: 28px;
   margin: 16px 0;
+  padding: 14px 20px;
 }
 
 .fuzzy-panel h2 { grid-column: 1 / -1; }
 .fuzzy-panel .fuzzy-input { grid-column: 1; }
-.fuzzy-panel .rules { grid-column: 2; grid-row: 2 / span 3; margin-top: 0; }
+.fuzzy-panel .rules {
+  grid-column: 2;
+  grid-row: 2 / span 3;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .fuzzy-panel .fuzzy-output { grid-column: 1 / -1; }
 .fuzzy-panel .caption { grid-column: 1 / -1; }
 
-.fuzzy-input { margin-bottom: 14px; }
+.fuzzy-input { margin-bottom: 10px; }
 
 .fuzzy-input-head {
   display: flex;
@@ -204,7 +248,7 @@ body {
 }
 
 .fuzzy-input-title { font-weight: 600; }
-.fuzzy-input-value { color: #8b98a9; }
+.fuzzy-input-value { color: #a3a3a3; }
 
 .membership-row {
   display: flex;
@@ -220,17 +264,17 @@ body {
   width: 84px;
   flex-shrink: 0;
   font-size: 12px;
-  color: #8b98a9;
+  color: #a3a3a3;
   text-transform: capitalize;
 }
 
-.membership-row.active .membership-label { color: #e6edf3; }
+.membership-row.active .membership-label { color: #fff; }
 
 .membership-bar {
   flex: 1;
   height: 8px;
-  background: #0b0f14;
-  border: 1px solid #243044;
+  background: #222;
+  border: 1px solid #2a2a2a;
   border-radius: 999px;
   overflow: hidden;
 }
@@ -238,7 +282,7 @@ body {
 .membership-fill {
   display: block;
   height: 100%;
-  background: #3b82f6;
+  background: #fff;
   border-radius: 999px;
 }
 
@@ -246,7 +290,7 @@ body {
   width: 34px;
   text-align: right;
   font-size: 12px;
-  color: #8b98a9;
+  color: #a3a3a3;
   font-variant-numeric: tabular-nums;
 }
 
@@ -260,7 +304,7 @@ body {
 }
 
 .rules-title { font-weight: 600; }
-.rules-count { color: #8b98a9; }
+.rules-count { color: #a3a3a3; }
 
 .rule-row {
   display: flex;
@@ -277,10 +321,10 @@ body {
   width: 18px;
   flex-shrink: 0;
   font-weight: 700;
-  color: #8b98a9;
+  color: #a3a3a3;
 }
 
-.rule-row.fired .rule-id { color: #e6edf3; }
+.rule-row.fired .rule-id { color: #fff; }
 
 .rule-text { flex: 1; min-width: 0; }
 
@@ -288,8 +332,8 @@ body {
   width: 64px;
   flex-shrink: 0;
   height: 8px;
-  background: #0b0f14;
-  border: 1px solid #243044;
+  background: #222;
+  border: 1px solid #2a2a2a;
   border-radius: 999px;
   overflow: hidden;
 }
@@ -297,7 +341,7 @@ body {
 .rule-fill {
   display: block;
   height: 100%;
-  background: #22c55e;
+  background: #fff;
   border-radius: 999px;
 }
 
@@ -305,7 +349,7 @@ body {
   width: 34px;
   text-align: right;
   font-variant-numeric: tabular-nums;
-  color: #8b98a9;
+  color: #a3a3a3;
 }
 
 .rule-output {
@@ -328,38 +372,40 @@ body {
   gap: 8px;
   margin-top: 16px;
   padding-top: 12px;
-  border-top: 1px solid #243044;
+  border-top: 1px solid #1c1c1c;
   flex-wrap: wrap;
 }
 
-.fuzzy-output .label { font-size: 12px; color: #8b98a9; }
+.fuzzy-output .label { font-size: 12px; color: #a3a3a3; }
 .fuzzy-output .value { font-size: 20px; font-weight: 700; }
-.fuzzy-output-arrow { color: #8b98a9; }
+.fuzzy-output-arrow { color: #a3a3a3; }
 
 .caption {
   margin: 12px 0 0;
   font-size: 12px;
-  color: #8b98a9;
+  color: #a3a3a3;
   line-height: 1.5;
 }
 
 .caption code {
   font-family: ui-monospace, monospace;
-  color: #e6edf3;
+  color: #fff;
   font-size: 11px;
 }
 
-/* ---- Quality ladder ---- */
+/* ---- Quality ladder ----
+   Rows distribute evenly across the card height, so the list itself
+   fills the card instead of ending mid-card. */
 
-.ladder { display: flex; gap: 14px; }
+.ladder { display: flex; gap: 14px; flex: 1; }
 
 .ladder-track {
   position: relative;
   flex-shrink: 0;
   width: 10px;
   border-radius: 999px;
-  background: #0b0f14;
-  border: 1px solid #243044;
+  background: #1a1a1a;
+  border: 1px solid #262626;
 }
 
 .ladder-marker {
@@ -368,7 +414,7 @@ body {
   right: -4px;
   height: 4px;
   border-radius: 999px;
-  background: #e879f9;
+  background: #fff;
   transform: translateY(50%);
 }
 
@@ -377,6 +423,9 @@ body {
   margin: 0;
   padding: 0;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .ladder-row {
@@ -389,15 +438,15 @@ body {
 }
 
 .ladder-row.current {
-  background: #12283d;
-  outline: 1px solid #3b82f6;
+  background: #1f1f1f;
+  outline: 1px solid #fff;
 }
 
 .ladder-row.placeholder { opacity: 0.55; }
 
 .ladder-height { font-weight: 700; width: 52px; }
-.ladder-bitrate { color: #8b98a9; font-size: 12px; }
-.ladder-state { color: #3b82f6; font-size: 12px; font-weight: 600; }
+.ladder-bitrate { color: #a3a3a3; font-size: 12px; }
+.ladder-state { color: #fff; font-size: 12px; font-weight: 600; }
 
 /* ---- Controls ---- */
 
@@ -416,23 +465,23 @@ body {
 .network-mode-toggle button,
 .buffer-mode-toggle button {
   padding: 7px 14px;
-  border: 1px solid #243044;
-  background: #0b0f14;
-  color: #e6edf3;
-  border-radius: 6px;
+  border: 1px solid #333;
+  background: transparent;
+  color: #d4d4d4;
+  border-radius: 999px;
   cursor: pointer;
   font-size: 13px;
 }
 
 .presets button:hover,
 .network-mode-toggle button:hover,
-.buffer-mode-toggle button:hover { border-color: #3b82f6; }
+.buffer-mode-toggle button:hover { border-color: #888; }
 
 .network-mode-toggle button.active,
 .buffer-mode-toggle button.active {
-  background: #3b82f6;
-  color: #fff;
-  border-color: #3b82f6;
+  background: #fff;
+  color: #000;
+  border-color: #fff;
 }
 
 .network-mode-toggle,
@@ -447,7 +496,7 @@ body {
 .network-mode-toggle .label,
 .buffer-mode-toggle .label {
   font-size: 13px;
-  color: #8b98a9;
+  color: #a3a3a3;
   margin-right: 4px;
 }
 
@@ -460,14 +509,14 @@ body {
 .controls input[type="range"] {
   width: 100%;
   margin-top: 6px;
-  accent-color: #3b82f6;
+  accent-color: #fff;
 }
 
 .controls input[type="range"]:disabled { opacity: 0.4; }
 
 .hint {
   font-size: 13px;
-  color: #8b98a9;
+  color: #a3a3a3;
   line-height: 1.5;
 }
 
@@ -487,22 +536,22 @@ body {
 
 .history th, .history td {
   padding: 7px 10px;
-  border-bottom: 1px solid #243044;
+  border-bottom: 1px solid #1c1c1c;
   text-align: left;
   font-variant-numeric: tabular-nums;
 }
 
-.history th { color: #8b98a9; font-weight: 600; }
+.history th { color: #a3a3a3; font-weight: 600; }
 
 /* ---- Footer ---- */
 
 .footer {
   margin-top: 2rem;
   padding-top: 1rem;
-  border-top: 1px solid #243044;
+  border-top: 1px solid #1c1c1c;
   text-align: center;
   font-size: 0.85rem;
-  color: #8b98a9;
+  color: #a3a3a3;
 }
 
 /* ---- Responsive ---- */
@@ -510,8 +559,9 @@ body {
 @media (max-width: 900px) {
   .dashboard { grid-template-columns: 1fr; }
   .app-header { flex-direction: column; }
+  .app-header h1 { font-size: 32px; }
   .decision-panel { grid-template-columns: repeat(2, 1fr); }
-  .mid-row { grid-template-columns: 1fr; }
+  .simulate-row { grid-template-columns: 1fr; }
   /* Fuzzy panel falls back to a single column: memberships, then rules,
      then the output line and caption. */
   .fuzzy-panel { grid-template-columns: 1fr; }
