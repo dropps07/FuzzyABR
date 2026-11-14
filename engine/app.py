@@ -15,7 +15,6 @@ CORS(app)
 
 FALLBACK_QUALITY = 360.0
 
-
 def parse_inputs(data):
     """Validate and clamp the three inputs. Raises KeyError/TypeError/ValueError."""
     if not isinstance(data, dict):
@@ -67,6 +66,5 @@ def get_rules():
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 8000))
-    # 127.0.0.1: only your machine can reach it. Use 0.0.0.0 only inside Docker.
-    app.run(host=os.environ.get('HOST', '127.0.0.1'), port=port, debug=False)
+    port = int(os.environ.get('PORT', 5001))
+    app.run(host=os.environ.get('HOST', '0.0.0.0'), port=port, debug=False)

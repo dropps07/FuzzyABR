@@ -10,6 +10,8 @@ services:
       - "8000:8000"
     depends_on:
       - engine
+    environment:
+      - FUZZY_ENGINE_URL=http://engine:5001
 
   client:
     build: ./client
@@ -18,4 +20,4 @@ services:
     depends_on:
       - server
     environment:
-      - WDS_SOCKET_PORT=0
+      - FUZZY_ENGINE_URL=http://engine:5001

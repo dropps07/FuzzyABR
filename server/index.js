@@ -5,8 +5,10 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 8000;
-const FUZZY_ENGINE_URL = 'http://127.0.0.1:5001';
+// Render (and any host) assigns the port via the PORT env var — the
+// hardcoded 8000 only applies to local runs.
+const PORT = process.env.PORT || 8000;
+const FUZZY_ENGINE_URL = process.env.FUZZY_ENGINE_URL || 'http://127.0.0.1:5001';
 
 app.use(cors());
 app.use(express.json());
