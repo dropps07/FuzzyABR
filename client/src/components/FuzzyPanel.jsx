@@ -36,7 +36,7 @@ function MembershipRow({ label, value }) {
   );
 }
 
-export default function FuzzyPanel({ inputs, decision, mappedLevel }) {
+export default function FuzzyPanel({ inputs, decision, mappedLevel, collectedRules = new Set(), onResetCollected = () => {} }) {
   const { memberships, rules } = useMemo(() => {
     if (!inputs) return { memberships: null, rules: [] };
     const m = fuzzify(inputs.bandwidth, inputs.buffer, inputs.delay);
@@ -53,6 +53,7 @@ export default function FuzzyPanel({ inputs, decision, mappedLevel }) {
   }
 
   const firedCount = rules.filter((r) => r.strength > 0).length;
+  const collectedCount = rules.filter((r) => collectedRules.has(r.id)).length;
 
   return (
     <section className="panel fuzzy-panel">
@@ -77,10 +78,22 @@ export default function FuzzyPanel({ inputs, decision, mappedLevel }) {
             {firedCount} of {rules.length} fired
           </span>
         </div>
+        <div className="rules-collected">
+          <span>
+            ✓ {collectedCount} of {rules.length} collected
+          </span>
+          {collectedCount > 0 ? (
+            <button type="button" className="rules-reset" onClick={onResetCollected}>
+              Reset
+            </button>
+          ) : null}
+        </div>
         {rules.map((rule) => {
           const fired = rule.strength > 0;
+          const collected = collectedRules.has(rule.id);
           return (
-            <div className={`rule-row ${fired ? 'fired' : ''}`} key={rule.id}>
+            <div className={`rule-row ${fired ? 'fired' : ''}${collected ? ' collected' : ''}`} key={rule.id}>
+              <span className="rule-check">{collected ? '✓' : ''}</span>
               <span className="rule-id">{rule.id}</span>
               <span className="rule-text">{rule.text}</span>
               <span className="rule-bar">
@@ -116,7 +129,8 @@ export default function FuzzyPanel({ inputs, decision, mappedLevel }) {
         Memberships and rule strengths are computed in your browser from the
         same functions as <code>engine/fuzzy_engine.py</code> — they explain
         the decision, they don&apos;t make it. The quality value comes from the
-        Flask engine via the server.
+        Flask engine via the server. Rules you trigger stay checked off —
+        change the settings to collect all six, and use Reset to start over.
       </p>
     </section>
   );

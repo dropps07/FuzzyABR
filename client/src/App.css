@@ -306,6 +306,27 @@ body {
 .rules-title { font-weight: 600; }
 .rules-count { color: #a3a3a3; }
 
+.rules-collected {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #a3a3a3;
+}
+
+.rules-reset {
+  background: transparent;
+  border: 1px solid #333;
+  color: #a3a3a3;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.rules-reset:hover { border-color: #fff; color: #fff; }
+
 .rule-row {
   display: flex;
   align-items: center;
@@ -315,7 +336,17 @@ body {
   opacity: 0.45;
 }
 
+.rule-row.collected { opacity: 0.75; }
+
 .rule-row.fired { opacity: 1; }
+
+.rule-check {
+  width: 14px;
+  flex-shrink: 0;
+  text-align: center;
+  font-weight: 700;
+  color: #22c55e;
+}
 
 .rule-id {
   width: 18px;

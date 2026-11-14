@@ -7,7 +7,7 @@ import { useAbrEngine } from './hooks/useAbrEngine';
 import { fetchHealth } from './api/abrClient';
 import { getBufferAhead } from './utils/buffer';
 import { computeQoe, qoeClass } from './utils/qoe';
-import { closestLevelHeight } from './utils/fuzzy';
+import { closestLevelHeight, fuzzify, evaluateRules } from './utils/fuzzy';
 import './App.css';
 
 // One-click network scenarios. Presets always switch back to manual
@@ -67,6 +67,30 @@ function App() {
   const lastInputs = lastEntry
     ? { bandwidth: lastEntry.bandwidth, buffer: lastEntry.buffer, delay: lastEntry.delay }
     : null;
+
+  // Rule checklist: every rule that has fired at least once since the page
+  // loaded stays collected, so toggling the settings builds the set up
+  // instead of resetting the count. Collection happens on the last POLLED
+  // inputs (what the engine actually saw), not the live slider positions —
+  // a rule lands in the checklist on the next 3s poll after you move a
+  // slider. The checklist is in-memory: it resets on page refresh.
+  const [collectedRules, setCollectedRules] = useState(() => new Set());
+  useEffect(() => {
+    if (!lastEntry) return;
+    const fired = evaluateRules(
+      fuzzify(lastEntry.bandwidth, lastEntry.buffer, lastEntry.delay)
+    )
+      .filter((r) => r.strength > 0)
+      .map((r) => r.id);
+    if (fired.length === 0) return;
+    setCollectedRules((prev) => {
+      if (fired.every((id) => prev.has(id))) return prev;
+      const next = new Set(prev);
+      fired.forEach((id) => next.add(id));
+      return next;
+    });
+  }, [lastEntry]);
+  const resetCollectedRules = useCallback(() => setCollectedRules(new Set()), []);
 
   const mappedLevel =
     decision != null
@@ -184,7 +208,7 @@ function App() {
         </aside>
       </main>
 
-      <FuzzyPanel inputs={lastInputs} decision={decision} mappedLevel={mappedLevel} />
+      <FuzzyPanel inputs={lastInputs} decision={decision} mappedLevel={mappedLevel} collectedRules={collectedRules} onResetCollected={resetCollectedRules} />
 
       <div className="simulate-row">
         <section className="controls panel">
