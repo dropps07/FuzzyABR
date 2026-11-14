@@ -1,6 +1,13 @@
 // src/api/abrClient.js
-const API_URL = 'http://127.0.0.1:8000/api/network-status';
-const HEALTH_URL = 'http://127.0.0.1:8000/api/health';
+//
+// The server URL comes from the build environment when hosted
+// (Render static site: REACT_APP_SERVER_URL) and falls back to the local
+// dev server. Create React App inlines REACT_APP_* vars at BUILD time, so
+// a hosted build must be built with the var set — it cannot be changed
+// at runtime afterwards.
+const SERVER = (process.env.REACT_APP_SERVER_URL || 'http://127.0.0.1:8000').replace(/\/$/, '');
+const API_URL = `${SERVER}/api/network-status`;
+const HEALTH_URL = `${SERVER}/api/health`;
 
 export async function fetchDecision(payload, signal) {
   const res = await fetch(API_URL, {
