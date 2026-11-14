@@ -1,0 +1,60 @@
+# Render Blueprint — deploys all three FuzzyABR services on Render's free tier.
+#
+# How to use it:
+#   1. Commit and push everything (the redesign, your engine/server fixes,
+#      and this file) to GitHub.
+#   2. In Render: New + -> Blueprint -> pick the dropps07/FuzzyABR repo.
+#      Render reads this file and creates the three services below.
+#   3. Open the client URL Render gives you.
+#
+# Free-tier caveats (honest ones):
+#   - The two web services sleep after 15 minutes with no traffic. The
+#     first visit after a sleep takes ~30-60s to wake up: the page loads,
+#     the engine badge reads "Engine unreachable" and the quality sits on
+#     the 360 fallback until the engine answers, then it behaves normally.
+#     The static site itself never sleeps.
+#   - If Render renames a service (name already taken), its public URL
+#     changes — update the two *.onrender.com URLs below to match what
+#     Render actually created (or edit them in the dashboard's env vars).
+#   - The $7/month Starter plan per web service keeps them always awake;
+#     that is the only paid step, and it is optional.
+#
+# No code in this repo points at localhost anymore except as a fallback:
+# the client reads REACT_APP_SERVER_URL at build time, the server reads
+# FUZZY_ENGINE_URL and PORT at runtime, and the engine reads PORT/HOST.
+
+services:
+  # Flask + scikit-fuzzy Mamdani engine. Render sets PORT; HOST=0.0.0.0
+  # makes sure it listens on all interfaces inside the container.
+  - type: web
+    name: fuzzyabr-engine
+    env: docker
+    dockerfilePath: ./engine/Dockerfile
+    plan: free
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+
+  # Express proxy. Talks to the engine over its public URL; the client
+  # talks to this service over its public URL.
+  - type: web
+    name: fuzzyabr-server
+    env: docker
+    dockerfilePath: ./server/Dockerfile
+    plan: free
+    envVars:
+      - key: FUZZY_ENGINE_URL
+        value: https://fuzzyabr-engine.onrender.com
+
+  # React dashboard (static site — never sleeps). REACT_APP_SERVER_URL is
+  # inlined into the bundle at BUILD time, so it must be set here, not
+  # changed afterwards.
+  - type: web
+    name: fuzzyabr-client
+    env: static
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: client/build
+    plan: free
+    envVars:
+      - key: REACT_APP_SERVER_URL
+        value: https://fuzzyabr-server.onrender.com
