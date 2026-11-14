@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
 
-// Public multi-bitrate HLS test stream (the one hls.js's own demos use).
-// Swap this for your own encoded video later if you want.
-const STREAM_URL = 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8';
+// Live Red Bull TV channel (motorsport, racing, bikes, cars, Air Race).
+// Public HLS master playlist, 6 adaptive levels (180p–1080p), CORS open —
+// verified live 2026-11-14. The ladder shows this stream's real levels.
+const STREAM_URL = 'https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8';
 
 export default function VideoPlayer({ videoRef, selectedQuality, onLevelsChange, onLevelChange }) {
   const hlsRef = useRef(null);
   const [levels, setLevels] = useState([]);
   const [currentLevel, setCurrentLevel] = useState(null);
+  const [streamError, setStreamError] = useState(false);
 
   // Set up hls.js once, on mount.
   useEffect(() => {
@@ -33,6 +35,15 @@ export default function VideoPlayer({ videoRef, selectedQuality, onLevelsChange,
       hls.on(Hls.Events.LEVEL_SWITCHED, (event, data) => {
         setCurrentLevel(data.level);
         if (onLevelChange) onLevelChange(data.level);
+      });
+
+      // A fatal error means hls.js has stopped — a live channel can drop
+      // out. Say so plainly instead of leaving "Loading stream..." forever.
+      // Non-fatal errors are left alone so hls.js can recover on its own.
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        if (data.fatal) {
+          setStreamError(true);
+        }
       });
 
       return () => hls.destroy();
@@ -67,9 +78,11 @@ export default function VideoPlayer({ videoRef, selectedQuality, onLevelsChange,
     <div className="video-wrapper">
       <video ref={videoRef} controls muted style={{ width: '100%', maxWidth: '720px' }} />
       <p className="now-playing">
-        {levels.length > 0 && currentLevel !== null
-          ? `Now playing: ${levels[currentLevel]?.height}p`
-          : 'Loading stream...'}
+        {streamError
+          ? 'Stream unavailable right now — it\u2019s a live channel, try reloading the page.'
+          : levels.length > 0 && currentLevel !== null
+            ? `Now playing: ${levels[currentLevel]?.height}p`
+            : 'Loading stream...'}
       </p>
     </div>
   );
