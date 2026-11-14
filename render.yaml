@@ -30,6 +30,7 @@ services:
     name: fuzzyabr-engine
     runtime: docker
     dockerfilePath: ./engine/Dockerfile
+    dockerContext: ./engine
     plan: free
     envVars:
       - key: HOST
@@ -41,6 +42,7 @@ services:
     name: fuzzyabr-server
     runtime: docker
     dockerfilePath: ./server/Dockerfile
+    dockerContext: ./server
     plan: free
     envVars:
       - key: FUZZY_ENGINE_URL
