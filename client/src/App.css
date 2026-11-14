@@ -165,11 +165,66 @@ body {
   display: block;
 }
 
+/* Now-playing status bar: a glass pill, display only — not a button.
+   The chrome rim + blur echo the reference pill; the play badge marks
+   it as playback status. It spans the video width so the space under
+   the video reads as intentional. */
 .now-playing {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 12px 0 0;
+  padding: 8px 16px 8px 8px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.2),
+    0 10px 30px rgba(0,0,0,0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   font-weight: 600;
   color: #fff;
-  margin: 10px 0 0;
   font-size: 14px;
+}
+
+.now-playing-error { border-color: rgba(245,158,11,0.5); }
+
+.now-playing-badge {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 30%, #333, #0a0a0a 70%);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    0 0 0 3px rgba(255,255,255,0.04);
+}
+
+.now-playing-badge svg {
+  width: 13px;
+  height: 13px;
+  fill: #fff;
+  margin-left: 2px;
+}
+
+.now-playing-text {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.now-playing-bitrate {
+  flex-shrink: 0;
+  color: #a3a3a3;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---- Decision stats ---- */

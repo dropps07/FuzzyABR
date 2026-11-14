@@ -74,16 +74,31 @@ export default function VideoPlayer({ videoRef, selectedQuality, onLevelsChange,
     }
   }, [selectedQuality, levels]);
 
+  const playingLevel =
+    levels.length > 0 && currentLevel !== null ? levels[currentLevel] : null;
+
   return (
     <div className="video-wrapper">
       <video ref={videoRef} controls muted style={{ width: '100%', maxWidth: '720px' }} />
-      <p className="now-playing">
-        {streamError
-          ? 'Stream unavailable right now — it\u2019s a live channel, try reloading the page.'
-          : levels.length > 0 && currentLevel !== null
-            ? `Now playing: ${levels[currentLevel]?.height}p`
-            : 'Loading stream...'}
-      </p>
+      <div className={`now-playing${streamError ? ' now-playing-error' : ''}`} role="status">
+        <span className="now-playing-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </span>
+        <span className="now-playing-text">
+          {streamError
+            ? 'Stream unavailable right now — it\u2019s a live channel, try reloading the page.'
+            : playingLevel
+              ? `Now playing: ${playingLevel.height}p`
+              : 'Loading stream...'}
+        </span>
+        {playingLevel && !streamError ? (
+          <span className="now-playing-bitrate">
+            {Math.round(playingLevel.bitrate / 1000)} kbps
+          </span>
+        ) : null}
+      </div>
     </div>
   );
 }
