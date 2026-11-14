@@ -1,88 +1,27 @@
-import { useState, useRef, useCallback, useEffect, useMemo } from 'react';
-import axios from 'axios';
-import VideoPlayer from './VideoPlayer';
-import './App.css';
-import NetworkChart from './NetworkChart';
 
-const SERVER_URL = 'http://127.0.0.1:8000/api/network-status';
+import { useState, useRef } from 'react';
+import VideoPlayer from './components/VideoPlayer';
+import NetworkChart from './components/NetworkChart';
+import { useAbrEngine } from './hooks/useAbrEngine';
+import { getBufferAhead } from './utils/buffer';
+import { computeQoe, qoeClass } from './utils/qoe';
+import './App.css';
 
 function App() {
   const [bandwidth, setBandwidth] = useState(8);
+  const [delay, setDelay] = useState(60);
   const [buffer, setBuffer] = useState(15);
   const [bufferMode, setBufferMode] = useState('live'); // 'live' | 'manual'
-  const [delay, setDelay] = useState(60);
-  const [decision, setDecision] = useState(null);
-  const [source, setSource] = useState(null);
-  const [history, setHistory] = useState([]);
   const videoRef = useRef(null);
 
-  // In 'live' mode, read the real buffer from the video element instead of
-  // trusting a slider - the player's actual buffered range is more honest
-  // than a number a person set by hand. In 'manual' mode, use the slider
-  // value directly so you can test specific buffer scenarios (e.g. forcing
-  // a near-empty buffer) without needing real playback conditions to match.
-  const getBufferHealth = useCallback(() => {
-    if (bufferMode === 'manual') return buffer;
-    const video = videoRef.current;
-    if (!video || video.readyState < 2) return buffer;
-    const currentTime = video.currentTime;
-    for (let i = 0; i < video.buffered.length; i++) {
-      if (video.buffered.start(i) <= currentTime && currentTime < video.buffered.end(i)) {
-        return Math.max(0, video.buffered.end(i) - currentTime);
-      }
-    }
-    return 0;
-  }, [buffer, bufferMode]);
+  const { decision, source, history } = useAbrEngine({
+    bandwidth,
+    delay,
+    getBuffer: () =>
+      bufferMode === 'manual' ? buffer : getBufferAhead(videoRef.current),
+  });
 
-  const askEngine = useCallback(async () => {
-    const liveBuffer = getBufferHealth();
-    try {
-      const res = await axios.post(SERVER_URL, { bandwidth, buffer: liveBuffer, delay });
-      setDecision(res.data.quality);
-      setSource(res.data.source);
-      setHistory(prev => [...prev.slice(-19), {
-        time: new Date().toLocaleTimeString(),
-        bandwidth, buffer: liveBuffer, delay,
-        quality: res.data.quality,
-      }]);
-    } catch (err) {
-      console.error('Could not reach server:', err.message);
-      setSource('unreachable');
-    }
-  }, [bandwidth, delay, getBufferHealth]);
-
-  useEffect(() => {
-    askEngine();
-    const interval = setInterval(askEngine, 3000);
-    return () => clearInterval(interval);
-  }, [askEngine]);
-
-  // Rolling QoE score over the last 10 decisions (~30s), combining three
-  // things a viewer actually feels: how high the quality was, how often
-  // it jumped around (jarring), and how close buffer got to starving.
-  const qoeScore = useMemo(() => {
-    if (history.length === 0) return null;
-    const recent = history.slice(-10);
-
-    const avgQuality = recent.reduce((sum, h) => sum + h.quality, 0) / recent.length;
-    const qualityScore = Math.min(avgQuality / 1080, 1) * 100;
-
-    let switches = 0;
-    for (let i = 1; i < recent.length; i++) {
-      if (recent[i].quality !== recent[i - 1].quality) switches++;
-    }
-    const switchPenalty = switches * 6;
-
-    const rebufferPenalty = recent.reduce((sum, h) => {
-      if (h.buffer < 2) return sum + 15;
-      if (h.buffer < 5) return sum + 5;
-      return sum;
-    }, 0) / recent.length;
-
-    return Math.max(0, Math.min(100, Math.round(qualityScore - switchPenalty - rebufferPenalty)));
-  }, [history]);
-
-  const qoeClass = qoeScore === null ? '' : qoeScore >= 70 ? 'good' : qoeScore >= 40 ? 'warning' : 'bad';
+  const qoe = computeQoe(history);
 
   return (
     <div className="App">
@@ -102,7 +41,7 @@ function App() {
         </div>
         <div className="stat">
           <span className="label">QoE score</span>
-          <span className={`value ${qoeClass}`}>{qoeScore === null ? '...' : `${qoeScore}/100`}</span>
+          <span className={`value ${qoeClass(qoe)}`}>{qoe === null ? '...' : `${qoe}/100`}</span>
         </div>
       </div>
 
@@ -121,18 +60,12 @@ function App() {
 
         <div className="buffer-mode-toggle">
           <span className="label">Buffer source</span>
-          <button
-            type="button"
-            className={bufferMode === 'live' ? 'active' : ''}
-            onClick={() => setBufferMode('live')}
-          >
+          <button type="button" className={bufferMode === 'live' ? 'active' : ''}
+            onClick={() => setBufferMode('live')}>
             Live (from player)
           </button>
-          <button
-            type="button"
-            className={bufferMode === 'manual' ? 'active' : ''}
-            onClick={() => setBufferMode('manual')}
-          >
+          <button type="button" className={bufferMode === 'manual' ? 'active' : ''}
+            onClick={() => setBufferMode('manual')}>
             Manual
           </button>
         </div>
@@ -157,9 +90,9 @@ function App() {
             <tr><th>Time</th><th>Bandwidth</th><th>Buffer</th><th>Delay</th><th>Quality</th></tr>
           </thead>
           <tbody>
-            {history.slice().reverse().map((h, i) => (
-              <tr key={i}>
-                <td>{h.time}</td>
+            {[...history].reverse().map(h => (
+              <tr key={h.id}>
+                <td>{new Date(h.t).toLocaleTimeString()}</td>
                 <td>{h.bandwidth.toFixed(1)} Mbps</td>
                 <td>{h.buffer.toFixed(1)}s</td>
                 <td>{h.delay}ms</td>
