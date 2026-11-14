@@ -84,6 +84,29 @@ body {
   min-width: 0;
 }
 
+/* ---- Row 2: ladder + simulate, side by side, equal height ---- */
+
+.mid-row {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 16px;
+  align-items: stretch;
+  margin: 16px 0;
+}
+
+.mid-row > * { min-width: 0; }
+
+.mid-row .controls { margin: 0; }
+
+/* Ladder card stretches to the row height; its caption sits at the bottom. */
+.mid-row .ladder-panel {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.mid-row .ladder-panel .caption { margin-top: auto; }
+
 .panel {
   background: #111826;
   border: 1px solid #243044;
@@ -152,7 +175,24 @@ body {
 .stat .value.good { color: #22c55e; }
 .stat .value.bad { color: #ef4444; }
 
-/* ---- Fuzzy panel ---- */
+/* ---- Fuzzy panel (full-width row) ----
+   Two-column inner layout: membership bars left, rules right, with the
+   defuzzified output and the explainer caption as a footer across the
+   bottom. Pure CSS grid over the panel's existing children — the
+   component itself is untouched. */
+
+.fuzzy-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: 28px;
+  margin: 16px 0;
+}
+
+.fuzzy-panel h2 { grid-column: 1 / -1; }
+.fuzzy-panel .fuzzy-input { grid-column: 1; }
+.fuzzy-panel .rules { grid-column: 2; grid-row: 2 / span 3; margin-top: 0; }
+.fuzzy-panel .fuzzy-output { grid-column: 1 / -1; }
+.fuzzy-panel .caption { grid-column: 1 / -1; }
 
 .fuzzy-input { margin-bottom: 14px; }
 
@@ -471,4 +511,12 @@ body {
   .dashboard { grid-template-columns: 1fr; }
   .app-header { flex-direction: column; }
   .decision-panel { grid-template-columns: repeat(2, 1fr); }
+  .mid-row { grid-template-columns: 1fr; }
+  /* Fuzzy panel falls back to a single column: memberships, then rules,
+     then the output line and caption. */
+  .fuzzy-panel { grid-template-columns: 1fr; }
+  .fuzzy-panel .fuzzy-input,
+  .fuzzy-panel .fuzzy-output,
+  .fuzzy-panel .caption { grid-column: auto; }
+  .fuzzy-panel .rules { grid-column: auto; grid-row: auto; margin-top: 16px; }
 }

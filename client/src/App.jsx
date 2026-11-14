@@ -150,11 +150,6 @@ function App() {
             onLevelsChange={handleLevelsChange}
             onLevelChange={handleLevelChange}
           />
-          <QualityLadder
-            levels={levels}
-            currentLevelIndex={currentLevelIndex}
-            decision={decision}
-          />
         </section>
 
         <aside className="side-col">
@@ -180,12 +175,17 @@ function App() {
               <span className="value">{secondsToNext === null ? '…' : `${secondsToNext}s`}</span>
             </div>
           </div>
-
-          <FuzzyPanel inputs={lastInputs} decision={decision} mappedLevel={mappedLevel} />
         </aside>
       </main>
 
-      <section className="controls panel">
+      <div className="mid-row">
+        <QualityLadder
+          levels={levels}
+          currentLevelIndex={currentLevelIndex}
+          decision={decision}
+        />
+
+        <section className="controls panel">
         <h3>Simulate network conditions</h3>
 
         <div className="presets">
@@ -259,7 +259,10 @@ function App() {
         ) : (
           <p className="hint">Buffer is read live from the video player.</p>
         )}
-      </section>
+        </section>
+      </div>
+
+      <FuzzyPanel inputs={lastInputs} decision={decision} mappedLevel={mappedLevel} />
 
       <NetworkChart history={history} />
 
