@@ -12,7 +12,7 @@ Instead of switching quality on fixed bandwidth thresholds, a Mamdani fuzzy infe
 <img width="2904" height="1412" alt="image" src="https://github.com/user-attachments/assets/3b1e46ba-3c10-404d-89d6-45779b29e3c9" />
 
 # Stats
-<img width="1043" height="707" alt="Screenshot 2026-11-15 at 1 54 50 AM" src="https://github.com/user-attachments/assets/ef88a37b-cf24-427c-b270-0587d9c8e430" />
+<img width="1076" height="710" alt="Screenshot 2026-11-15 at 1 59 17 AM" src="https://github.com/user-attachments/assets/7af7716c-ef1b-4c9d-8207-e22ef26612f7" />
 
 ---
 
