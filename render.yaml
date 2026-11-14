@@ -28,7 +28,7 @@ services:
   # makes sure it listens on all interfaces inside the container.
   - type: web
     name: fuzzyabr-engine
-    env: docker
+    runtime: docker
     dockerfilePath: ./engine/Dockerfile
     plan: free
     envVars:
@@ -39,7 +39,7 @@ services:
   # talks to this service over its public URL.
   - type: web
     name: fuzzyabr-server
-    env: docker
+    runtime: docker
     dockerfilePath: ./server/Dockerfile
     plan: free
     envVars:
@@ -51,10 +51,9 @@ services:
   # changed afterwards.
   - type: web
     name: fuzzyabr-client
-    env: static
-    buildCommand: cd client && npm install && npm run build
-    staticPublishPath: client/build
-    plan: free
+    runtime: static
+    buildCommand: cd client && npm ci && npm run build
+    staticPublishPath: ./client/build
     envVars:
       - key: REACT_APP_SERVER_URL
         value: https://fuzzyabr-server.onrender.com
