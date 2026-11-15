@@ -6,7 +6,7 @@ import { fuzzify, evaluateRules } from '../utils/fuzzy';
  *
  * Shows, for the inputs that were actually sent to the engine:
  *  - how strongly each fuzzy label applies (membership bars),
- *  - which of the 6 rules fired and how strongly,
+ *  - which of the 7 rules fired and how strongly,
  *  - the defuzzified output from the server vs the HLS level it mapped to.
  *
  * Visualisation only: the memberships and rule strengths are computed in

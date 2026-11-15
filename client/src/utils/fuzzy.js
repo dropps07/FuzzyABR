@@ -58,7 +58,7 @@ export const MEMBERSHIP = {
     unit: 'ms',
     labels: {
       low: { fn: trapmf, params: [0, 0, 50, 100] },
-      high: { fn: trapmf, params: [100, 150, 400, 400] },
+      high: { fn: trapmf, params: [90, 150, 400, 400] },
     },
   },
 };
@@ -94,7 +94,11 @@ export function fuzzify(bandwidth, buffer, delay) {
   };
 }
 
-// ---- Rule base, exactly as in fuzzy_engine.py (AND = min) ----
+// ---- Rule base, exactly as in fuzzy_engine.py (AND = min, OR = max) ----
+// Engine rules (7): 3 safety overrides, then the throughput x buffer grid.
+// Note the engine has NO delay condition on the grid rules — delay only
+// matters via rule A (delay high -> panic) — and buffer full counts the
+// same as healthy for medium/excellent bandwidth.
 export const RULES = [
   {
     id: 'A',
@@ -116,23 +120,32 @@ export const RULES = [
   },
   {
     id: 'D',
-    text: 'IF bandwidth is excellent AND buffer is full AND delay is low THEN quality is high',
-    output: 'high',
+    text: 'IF bandwidth is medium AND buffer is healthy OR full THEN quality is medium',
+    output: 'medium',
     strength: (m) =>
-      Math.min(m.bandwidth.excellent, m.buffer.full, m.delay.low),
+      Math.min(m.bandwidth.medium, Math.max(m.buffer.healthy, m.buffer.full)),
   },
   {
     id: 'E',
-    text: 'IF bandwidth is high AND buffer is healthy AND delay is low THEN quality is medium',
+    text: 'IF bandwidth is high AND buffer is healthy THEN quality is medium',
     output: 'medium',
-    strength: (m) =>
-      Math.min(m.bandwidth.high, m.buffer.healthy, m.delay.low),
+    strength: (m) => Math.min(m.bandwidth.high, m.buffer.healthy),
   },
   {
     id: 'F',
-    text: 'IF bandwidth is medium AND buffer is healthy THEN quality is medium',
-    output: 'medium',
-    strength: (m) => Math.min(m.bandwidth.medium, m.buffer.healthy),
+    text: 'IF bandwidth is high AND buffer is full THEN quality is high',
+    output: 'high',
+    strength: (m) => Math.min(m.bandwidth.high, m.buffer.full),
+  },
+  {
+    id: 'G',
+    text: 'IF bandwidth is excellent AND buffer is healthy OR full THEN quality is high',
+    output: 'high',
+    strength: (m) =>
+      Math.min(
+        m.bandwidth.excellent,
+        Math.max(m.buffer.healthy, m.buffer.full),
+      ),
   },
 ];
 
