@@ -121,38 +121,6 @@ function App() {
     };
   }, []);
 
-  // Full-screen "waking the engine" overlay: while the engine is not
-  // confirmed up (checking on load, or the server answering but the
-  // engine not yet), cover the page with a spinner, a message and a
-  // timer counting up from 0. It hides the moment health turns 'ok'.
-  // It never shows for 'unreachable' — a dead server is a different
-  // problem, and the dashboard with its red badge is more honest there.
-  const waking = health === 'checking' || health === 'degraded';
-  const [wakeSeconds, setWakeSeconds] = useState(0);
-  const [showWaking, setShowWaking] = useState(false);
-
-  // Tick the timer once a second while waking; reset it when the
-  // engine comes up so a later re-wake starts at 0 again.
-  useEffect(() => {
-    if (!waking) return;
-    const timer = setInterval(() => setWakeSeconds((s) => s + 1), 1000);
-    return () => clearInterval(timer);
-  }, [waking]);
-  useEffect(() => {
-    if (health === 'ok') setWakeSeconds(0);
-  }, [health]);
-
-  // Grace delay: don't flash the overlay on a warm engine — only show
-  // it if we're still waking half a second after the page loads.
-  useEffect(() => {
-    if (!waking) {
-      setShowWaking(false);
-      return;
-    }
-    const timer = setTimeout(() => setShowWaking(true), 500);
-    return () => clearTimeout(timer);
-  }, [waking]);
-
   // 1s ticker — drives the next-decision countdown (display only; the
   // poll itself lives in useAbrEngine) and keeps Real Network readings fresh.
   useEffect(() => {
@@ -181,13 +149,6 @@ function App() {
 
   return (
     <div className="App">
-      {showWaking && (
-        <div className="waking-overlay" role="status" aria-live="polite">
-          <div className="waking-spinner" />
-          <p className="waking-message">Please wait, we are waking the engine up</p>
-          <p className="waking-timer">{wakeSeconds}s</p>
-        </div>
-      )}
       <header className="app-header">
         <div>
           <h1>FuzzyABR</h1>
