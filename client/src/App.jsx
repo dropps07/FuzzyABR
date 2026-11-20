@@ -4,7 +4,7 @@ import NetworkChart from './components/NetworkChart';
 import FuzzyPanel from './components/FuzzyPanel';
 import QualityLadder from './components/QualityLadder';
 import { useAbrEngine } from './hooks/useAbrEngine';
-import { fetchHealth } from './api/abrClient';
+import { fetchHealth, wakeEngine } from './api/abrClient';
 import { getBufferAhead } from './utils/buffer';
 import { computeQoe, qoeClass } from './utils/qoe';
 import { closestLevelHeight, fuzzify, evaluateRules } from './utils/fuzzy';
@@ -101,6 +101,14 @@ function App() {
       ? levels[currentLevelIndex]?.height
       : null;
 
+  // Wake the sleeping engine as soon as someone opens the page: one
+  // fire-and-forget GET at the engine's /health starts its ~13s wake
+  // immediately, instead of waiting for the server's polls (which never
+  // wake it on their own). Runs once on mount.
+  useEffect(() => {
+    wakeEngine();
+  }, []);
+
   // Engine health: on mount and every 30s (via the server's /api/health,
   // which also reports whether the fuzzy engine answers).
   useEffect(() => {
@@ -154,16 +162,21 @@ function App() {
           <h1>FuzzyABR</h1>
           <p className="subtitle">A fuzzy-logic bitrate controller, deciding video quality every 3 seconds.</p>
         </div>
-        <span className={`health health-${health}`} title="Engine health (server /api/health)">
-          <span className="health-dot" />
-          {health === 'ok'
-            ? 'Engine ok'
-            : health === 'degraded'
-              ? 'Engine unreachable'
-              : health === 'unreachable'
-                ? 'Server unreachable'
-                : 'Checking…'}
-        </span>
+        <div className="health-wrap">
+          <span className={`health health-${health}`} title="Engine health (server /api/health)">
+            <span className="health-dot" />
+            {health === 'ok'
+              ? 'Engine ok'
+              : health === 'degraded'
+                ? 'Engine unreachable'
+                : health === 'unreachable'
+                  ? 'Server unreachable'
+                  : 'Checking…'}
+          </span>
+          {(health === 'checking' || health === 'degraded') && (
+            <p className="waking-note">Please wait — the server is waking up (about 13 sec)</p>
+          )}
+        </div>
       </header>
 
       <main className="dashboard">
