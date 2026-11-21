@@ -10,6 +10,10 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const FUZZY_ENGINE_URL = process.env.FUZZY_ENGINE_URL || 'http://127.0.0.1:5001';
 
+// Render free tier: a sleeping engine needs ~13s to wake, so a 2s timeout
+// abandoned the wake-up and every retry started the wait over.
+const ENGINE_TIMEOUT_MS = 30000;
+
 app.use(cors());
 app.use(express.json());
 
@@ -28,7 +32,7 @@ app.post('/api/network-status', async (req, res) => {
   try {
     const response = await axios.post(`${FUZZY_ENGINE_URL}/get-quality`, {
       bandwidth, buffer, delay
-    }, { timeout: 2000 });
+    }, { timeout: ENGINE_TIMEOUT_MS });
 
     const quality = response.data.quality;
     logEvent({ inputs: { bandwidth, buffer, delay }, quality, source: 'fuzzy_engine' });
@@ -45,7 +49,7 @@ app.post('/api/network-status', async (req, res) => {
 
 app.get('/api/health', async (req, res) => {
   try {
-    await axios.get(`${FUZZY_ENGINE_URL}/health`, { timeout: 2000 });
+    await axios.get(`${FUZZY_ENGINE_URL}/health`, { timeout: ENGINE_TIMEOUT_MS });
     res.json({ server: 'ok', fuzzy_engine: 'ok' });
   } catch (err) {
     res.json({ server: 'ok', fuzzy_engine: 'unreachable' });
