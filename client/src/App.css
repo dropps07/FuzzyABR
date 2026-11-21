@@ -88,9 +88,9 @@ body {
 .health-unreachable { color: #ef4444; }
 .health-unreachable .health-dot { background: #ef4444; }
 
-/* Badge + waking note, stacked on the right of the header. The note
-   only shows while the engine is waking (see App.jsx) — a small grey
-   line under the badge, no animation. */
+/* Badge + wake-up popup, stacked on the right of the header. The popup
+   only shows while the engine is unreachable (see App.jsx) — a small
+   amber card under the badge with the engine link to wake it up. */
 .health-wrap {
   display: flex;
   flex-direction: column;
@@ -98,14 +98,37 @@ body {
   gap: 8px;
   flex-shrink: 0;
 }
-.waking-note {
-  margin: 0;
-  max-width: 220px;
-  font-size: 12px;
-  line-height: 1.4;
-  color: #a3a3a3;
-  text-align: right;
+.wake-popup {
+  position: relative;
+  max-width: 280px;
+  padding: 12px 28px 12px 14px;
+  border: 1px solid #f59e0b;
+  border-radius: 12px;
+  background: #141414;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #e5e5e5;
 }
+.wake-popup p {
+  margin: 0 0 6px;
+}
+.wake-popup a {
+  color: #fbbf24;
+  word-break: break-all;
+}
+.wake-popup-close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  padding: 2px 6px;
+  border: none;
+  background: none;
+  color: #a3a3a3;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+.wake-popup-close:hover { color: #e5e5e5; }
 
 /* ---- Layout ---- */
 

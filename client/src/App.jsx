@@ -4,7 +4,7 @@ import NetworkChart from './components/NetworkChart';
 import FuzzyPanel from './components/FuzzyPanel';
 import QualityLadder from './components/QualityLadder';
 import { useAbrEngine } from './hooks/useAbrEngine';
-import { fetchHealth, wakeEngine } from './api/abrClient';
+import { fetchHealth, wakeEngine, ENGINE_URL } from './api/abrClient';
 import { getBufferAhead } from './utils/buffer';
 import { computeQoe, qoeClass } from './utils/qoe';
 import { closestLevelHeight, fuzzify, evaluateRules } from './utils/fuzzy';
@@ -28,6 +28,7 @@ function App() {
   const [levels, setLevels] = useState([]);
   const [currentLevelIndex, setCurrentLevelIndex] = useState(null);
   const [health, setHealth] = useState('checking'); // checking | ok | degraded | unreachable
+  const [wakePopupDismissed, setWakePopupDismissed] = useState(false); // popup dismissed for this outage
   const [now, setNow] = useState(Date.now());
   const videoRef = useRef(null);
 
@@ -129,6 +130,12 @@ function App() {
     };
   }, []);
 
+  // Once the engine answers again, the popup may show again on the next
+  // outage — a dismiss only lasts while this outage lasts.
+  useEffect(() => {
+    if (health !== 'degraded') setWakePopupDismissed(false);
+  }, [health]);
+
   // 1s ticker — drives the next-decision countdown (display only; the
   // poll itself lives in useAbrEngine) and keeps Real Network readings fresh.
   useEffect(() => {
@@ -173,8 +180,18 @@ function App() {
                   ? 'Server unreachable'
                   : 'Checking…'}
           </span>
-          {(health === 'checking' || health === 'degraded') && (
-            <p className="waking-note">Please wait — the server is waking up (about 13 sec)</p>
+          {health === 'degraded' && !wakePopupDismissed && (
+            <div className="wake-popup" role="alert">
+              <button
+                className="wake-popup-close"
+                onClick={() => setWakePopupDismissed(true)}
+                aria-label="Dismiss"
+              >
+                ×
+              </button>
+              <p>Engine unreachable. Visit this link to wake it up:</p>
+              <a href={ENGINE_URL} target="_blank" rel="noreferrer">{ENGINE_URL}</a>
+            </div>
           )}
         </div>
       </header>

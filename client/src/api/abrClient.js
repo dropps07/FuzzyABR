@@ -9,12 +9,13 @@ const SERVER = (process.env.REACT_APP_SERVER_URL || 'http://127.0.0.1:8000').rep
 const API_URL = `${SERVER}/api/network-status`;
 const HEALTH_URL = `${SERVER}/api/health`;
 
-// The fuzzy engine's own URL, for the wake-up ping below. Same pattern
-// as SERVER: REACT_APP_ENGINE_URL at build time, otherwise the deployed
-// engine — the ping only matters for the hosted demo (a local engine
-// never sleeps), so the deployed URL is the default, not localhost.
+// The fuzzy engine's own URL — the wake-up ping below hits it, and the
+// unreachable popup in App.jsx links to it. Same pattern as SERVER:
+// REACT_APP_ENGINE_URL at build time, otherwise the deployed engine —
+// the ping only matters for the hosted demo (a local engine never
+// sleeps), so the deployed URL is the default, not localhost.
 // Override with REACT_APP_ENGINE_URL if the engine ever moves.
-const ENGINE_URL = (process.env.REACT_APP_ENGINE_URL || 'https://fuzzyabr-engine.onrender.com').replace(/\/$/, '');
+export const ENGINE_URL = (process.env.REACT_APP_ENGINE_URL || 'https://fuzzyabr-engine.onrender.com').replace(/\/$/, '');
 const ENGINE_HEALTH_URL = `${ENGINE_URL}/health`;
 
 // Wake the sleeping engine: one GET at its /health on page load, result
